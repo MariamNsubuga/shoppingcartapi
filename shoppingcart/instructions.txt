@@ -1,0 +1,5 @@
+how to run the application follow these steps
+git clone https://github.com/MariamNsubuga/shoppingcartapi.git
+cd into the shoppingcartapi folder
+pip install -r requirements.txt
+python3 manage runserver
