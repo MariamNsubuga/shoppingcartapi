@@ -38,3 +38,9 @@ class CustomUserLoginSerializer(TokenObtainPairSerializer):
         token = super(CustomUserLoginSerializer, cls).get_token(user)
         # You can include additional user data in the token here if needed
         return token
+
+
+class ShoppingItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShoppingItem
+        fields = '__all__'

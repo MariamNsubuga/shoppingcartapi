@@ -62,3 +62,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class ShoppingItem(models.Model):
+    name = models.CharField(max_length=100)
+    quantity = models.PositiveIntegerField()
+    amount = models.PositiveIntegerField()
+    note = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name

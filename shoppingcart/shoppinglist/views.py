@@ -11,6 +11,8 @@ from .serializers import CustomUserRegistrationSerializer, CustomUserLoginSerial
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import *
 # class UserCreateView(generics.CreateAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
@@ -32,6 +34,7 @@ class CustomUserRegistrationView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+
         return Response({'detail': 'User registered successfully.'}, status=status.HTTP_201_CREATED)
 
 
@@ -44,3 +47,19 @@ class CustomUserLoginView(TokenObtainPairView):
 def see(request):
     # Your view logic here
     return JsonResponse({'message': 'Hello, this is the see view!'})
+
+
+class ShoppingItemListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (SessionAuthentication,
+                              BasicAuthentication, TokenAuthentication)
+    queryset = ShoppingItem.objects.all()
+    serializer_class = ShoppingItemSerializer
+
+
+class ShoppingItemDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (SessionAuthentication,
+                              BasicAuthentication, TokenAuthentication)
+    queryset = ShoppingItem.objects.all()
+    serializer_class = ShoppingItemSerializer
